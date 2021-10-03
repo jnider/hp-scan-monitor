@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScanSettings xmlns="http://schemas.hp.com/imaging/escl/2011/05/03" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.hp.com/imaging/escl/2011/05/03 Scan Schema - 0.26.xsd">
+	<Version xmlns="http://www.pwg.org/schemas/2010/12/sm">2.63</Version>
+	<Intent>Document</Intent>
+	<ScanRegions xmlns="http://www.pwg.org/schemas/2010/12/sm" xmlns:n0="http://www.pwg.org/schemas/2010/12/sm" n0:MustHonor="false">
+		<ScanRegion>
+			<Height>3300</Height>
+			<Width>2550</Width>
+			<XOffset>0</XOffset>
+			<YOffset>0</YOffset>
+			<ContentRegionUnits>escl:ThreeHundredthsOfInches</ContentRegionUnits>
+		</ScanRegion>
+	</ScanRegions>
+	<DocumentFormatExt>image/jpeg</DocumentFormatExt>
+	<InputSource xmlns="http://www.pwg.org/schemas/2010/12/sm">Platen</InputSource>
+	<XResolution>300</XResolution>
+	<YResolution>300</YResolution>
+	<ColorMode>RGB24</ColorMode>
+	<Brightness>996</Brightness>
+	<Contrast>996</Contrast>
+	<JobSourceInfo>
+		<UserName>LOCAL SERVICE</UserName>
+		<UserDomain></UserDomain>
+		<MachineName></MachineName>
+		<AppFileName>svchost.exe</AppFileName>
+		<Application>WIA client</Application>
+	</JobSourceInfo>
+</ScanSettings>
+

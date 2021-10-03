@@ -1,0 +1,65 @@
+#!/bin/sh
+if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
+    set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
+fi
+### BEGIN INIT INFO
+# Provides:          hp-scan-monitor
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: HP Scan-to-pc service
+# Description:       HP home scanners do not support network file systems
+#							(SMB,NFS, etc.) as a target to save scanned files. This
+#							monitor is meant to run on the NAS or remote computer
+#							as a proxy for putting output files in a directory that
+#							is available over the network. It requires HTTP access
+#							since that is how HP printers send scan jobs (SOAP/XML).
+### END INIT INFO
+
+# Author:  Joel Nider
+#
+# Please remove the "Author" lines above and replace them
+# with your own name if you copy and modify this script.
+
+DESC="HP Scan-to-pc monitor"
+NAME=hp-scan-monitor
+DAEMON=/usr/bin/hp-scan-monitor.sh
+PID_DIR=/var/run
+PID=$PID_DIR/$NAME.pid
+LOGFILE=/var/log/hp-scan-monitor.log
+
+case "$1" in
+  start)
+    echo "Starting hp-scan-monitor service"
+    if [ ! -f $PID ]; then
+        echo "$NAME starting ..."
+        sudo -u scanner $DAEMON >&- 2>>$LOGFILE &
+        echo $! > $PID
+        echo "$NAME started ..." 
+    else
+        echo "$NAME is already running ...";
+    fi
+    ;;
+  stop)
+    echo "Stopping hp-scan-monitor service"
+    if [ -f $PID ]; then
+        PID_ID=$(cat $PID_DIR/$NAME.pid);
+        echo "Stopping $NAME ..."
+            kill $PID_ID;
+            echo "$NAME stopped ..."
+            rm $PID
+        else
+            echo "$NAME is not running ..."
+        fi
+    ;;
+  restart)
+    echo "Restarting hp-scan-monitor service"
+    ;;
+  *)
+    echo "Usage: /etc/init.d/hp-scan-monitor {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

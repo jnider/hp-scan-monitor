@@ -1,0 +1,15 @@
+[Unit]
+Description=hp-scan-monitor
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/hp-scan-monitor.sh
+Type=simple
+User=scanner
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=hp-scan-monitor
+
+[Install]
+WantedBy=multi-user.target
