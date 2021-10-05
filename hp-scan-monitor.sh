@@ -83,12 +83,12 @@ function ReceiveScannedFile()
 	local num=0
 
 	# create unique output filename
-	printf -v filename "scan%04i.bin" $num
+	printf -v filename "scan%04i.jpg" $num
 	while
 		[[ -e $output_dir/$filename ]]
 	do
 		num=$((num + 1))
-		printf -v filename "scan%04i.bin" $num
+		printf -v filename "scan%04i.jpg" $num
 	done
 
 	# "stream" the output document as it's being scanned
