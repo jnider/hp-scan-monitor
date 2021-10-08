@@ -315,14 +315,14 @@ if [[ -z "$host_uuid" ]]; then
 	exit
 fi
 
-	# Get the initial set of events from the scanner
-	events=$(curl -s -X GET http://$printerIP/EventMgmt/EventTable)
-   if [[ -z "$events" ]]; then
-      # We didn't get a good response - we might have been disconnected
-      echo "Connection lost before we could check the printer has acknowledged us"
-		sleep 5
-		continue
-	fi
+# Get the initial set of events from the scanner
+events=$(curl -s -X GET http://$printerIP/EventMgmt/EventTable)
+if [[ -z "$events" ]]; then
+	# We didn't get a good response - we might have been disconnected
+	echo "Connection lost before we could check the printer has acknowledged us"
+	sleep 5
+	continue
+fi
 
 # check for new events
 while :
