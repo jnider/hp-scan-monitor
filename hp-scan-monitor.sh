@@ -95,6 +95,9 @@ function ReceiveScannedFile()
 	echo "Getting document $output_dir/$filename"
 	job_status=$(curl -s -X GET http://$printerIP/eSCL/ScanJobs/$job_uuid/NextDocument -o $output_dir/$filename)
 
+	# make the file writable by group members
+	chmod g+w $output_dir/$filename
+
 	img_info=($(curl -s http://$printerIP/eSCL/ScanJobs/$job_uuid/ScanImageInfo))
 	ParseImageInfo ${img_info[@]}
 
@@ -303,7 +306,7 @@ xml=$(curl -s -X GET http://$printerIP/WalkupScanToComp/WalkupScanToCompDestinat
 if [[ -z "$xml" ]]; then
 	# We didn't get a good XML response, probably because we're not connected
 	echo "No connection to printer"
-	exit
+	exit -1
 fi
 
 echo "Checking registered computers"
@@ -312,7 +315,7 @@ RegisterIfNeeded
 if [[ -z "$host_uuid" ]]; then
 	# We didn't get a good URL - we might have been disconnected
 	echo "Connection lost before we got our unique URL"
-	exit
+	exit -2
 fi
 
 # Get the initial set of events from the scanner
